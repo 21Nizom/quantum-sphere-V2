@@ -1,0 +1,53 @@
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body { 
+    background-color: #000; 
+    overflow: hidden; 
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    height: 100vh;
+    font-family: 'Share Tech Mono', monospace;
+}
+
+/* Эффект виньетки (затемнение по краям) */
+.vignette {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, transparent 40%, rgba(0,0,0,0.9) 100%);
+    pointer-events: none;
+    z-index: 5;
+}
+
+.interface-overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 30px;
+    z-index: 10;
+    pointer-events: none;
+}
+
+.top-bar {
+    color: rgba(0, 230, 255, 0.5);
+    font-size: 14px;
+    letter-spacing: 2px;
+    border-left: 3px solid rgba(0, 230, 255, 0.7);
+    padding-left: 10px;
+}
+
+.bottom-bar {
+    color: rgba(0, 230, 255, 0.3);
+    font-size: 10px;
+    text-align: right;
+    letter-spacing: 4px;
+}
+
+canvas { display: block; z-index: 1; }
+.interface-overlay, .vignette {
+    pointer-events: none; /* Это позволит кликать "сквозь" надписи прямо по сфере */
+}

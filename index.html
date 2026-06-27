@@ -19,7 +19,12 @@
 </html>
 
 <div class="cyber-scan-overlay" id="hudMatrix"></div>
-<div class="cyber-nav-deck">
+
+<button class="cyber-menu-trigger" id="menuTrigger">[ MENU ]</button>
+
+<div class="cyber-nav-deck" id="navDeck">
+    <button class="cyber-close-btn" id="menuClose">✕ CLOSE</button>
+    
     <div class="cyber-links-wrap">
         <a href="https://21nizom.github.io/Neon-periodic.X/" class="cyber-node"><span class="cyber-core"></span>ELEMENTS</a>
         <a href="https://21nizom.github.io/quantum-sphere-V2/" class="cyber-node active"><span class="cyber-core"></span>SPHERE</a>
@@ -29,6 +34,8 @@
 </div>
 
 <style>
+    .cyber-menu-trigger, .cyber-close-btn { display: none; }
+    
     .cyber-nav-deck {
         position: fixed; top: 15px; left: 50%; transform: translateX(-50%);
         display: flex; align-items: center; justify-content: space-between; gap: 10px;
@@ -36,14 +43,12 @@
         border-radius: 6px; border: 1px solid #00ffcc;
         box-shadow: 0 0 20px rgba(0, 255, 204, 0.25); backdrop-filter: blur(6px);
         width: 94%; max-width: 600px; font-family: 'Courier New', Courier, monospace;
-        touch-action: manipulation;
     }
-    .cyber-links-wrap { display: flex; gap: 6px; flex: 1; justify-content: flex-start; }
+    .cyber-links-wrap { display: flex; gap: 6px; }
     .cyber-node {
-        color: #00ffcc; text-decoration: none; font-size: 11px; font-weight: bold;
-        display: flex; align-items: center; gap: 6px; padding: 8px 10px;
+        color: #00ffcc; text-decoration: none; font-size: 12px; font-weight: bold;
+        display: flex; align-items: center; gap: 6px; padding: 8px 14px;
         border: 1px solid transparent; border-radius: 4px; transition: all 0.25s ease; white-space: nowrap;
-        position: relative; z-index: 1000000;
     }
     .cyber-node:hover, .cyber-node:active { background: rgba(0, 255, 204, 0.12); border-color: #00ffcc; text-shadow: 0 0 6px #00ffcc; }
     .cyber-core { width: 6px; height: 6px; background: #2a3a3a; border-radius: 50%; display: inline-block; }
@@ -53,9 +58,8 @@
 
     .cyber-hud-btn {
         background: transparent; border: 1px solid #ffaa00; color: #ffaa00;
-        padding: 8px 12px; font-family: 'Courier New', Courier, monospace; font-size: 10px;
+        padding: 8px 12px; font-family: 'Courier New', Courier, monospace; font-size: 11px;
         font-weight: bold; cursor: pointer; border-radius: 4px; transition: all 0.2s ease; touch-action: manipulation;
-        position: relative; z-index: 1000000;
     }
     .cyber-hud-btn:hover, .cyber-hud-btn:active, .cyber-hud-btn.hud-on { background: rgba(255, 170, 0, 0.2); box-shadow: 0 0 12px #ffaa00; text-shadow: 0 0 5px #ffaa00; }
 
@@ -66,16 +70,33 @@
     }
     body.hud-active .cyber-scan-overlay { opacity: 1; animation: matrix-flicker 0.15s infinite; }
 
-    @media (min-width: 601px) { 
-        .cyber-node { font-size: 12px; padding: 8px 14px; } 
-    }
-
     @media (max-width: 600px) {
-        .cyber-nav-deck { top: auto; bottom: 12px; padding: 6px 8px; }
-        .cyber-links-wrap { gap: 2px; }
-        .cyber-node { font-size: 9px; padding: 8px 6px; gap: 4px; }
-        .cyber-core { width: 5px; height: 5px; }
-        .cyber-hud-btn { padding: 8px 6px; font-size: 9px; }
+        .cyber-menu-trigger {
+            display: block; position: fixed; top: 15px; right: 15px; z-index: 999995;
+            background: rgba(4, 10, 18, 0.9); border: 1px solid #00ffcc; color: #00ffcc;
+            padding: 10px 14px; font-family: 'Courier New', Courier, monospace; font-size: 12px;
+            font-weight: bold; border-radius: 4px; box-shadow: 0 0 10px rgba(0, 255, 204, 0.3);
+            cursor: pointer; touch-action: manipulation;
+        }
+        .cyber-close-btn {
+            display: block; position: absolute; top: 15px; right: 15px;
+            background: transparent; border: 1px solid #ff007f; color: #ff007f;
+            padding: 8px 12px; font-family: 'Courier New', Courier, monospace; font-size: 11px;
+            font-weight: bold; border-radius: 4px; cursor: pointer;
+        }
+        .cyber-nav-deck {
+            position: fixed; top: 0; right: -100%; left: auto; transform: none;
+            width: 270px; height: 100%; flex-direction: column; justify-content: flex-start;
+            align-items: stretch; gap: 35px; padding: 80px 20px 40px 20px;
+            border-radius: 0; border: none; border-left: 2px solid #00ffcc;
+            background: rgba(3, 8, 15, 0.98); box-shadow: -10px 0 30px rgba(0, 255, 204, 0.2);
+            transition: right 0.3s cubic-bezier(0.1, 0.9, 0.2, 1);
+        }
+        .cyber-nav-deck.open { right: 0; }
+        .cyber-links-wrap { flex-direction: column; gap: 14px; }
+        .cyber-node { font-size: 14px; padding: 14px 12px; border: 1px solid rgba(0, 255, 204, 0.15); justify-content: flex-start; }
+        .cyber-node.active { border-color: #ff007f; }
+        .cyber-hud-btn { width: 100%; padding: 14px; font-size: 12px; text-align: center; margin-top: auto; }
     }
     @keyframes cyber-pulse { 0%, 100% { opacity: 0.3; } 50% { opacity: 1; } }
     @keyframes matrix-flicker { 0% { opacity: 0.95; } 50% { opacity: 1; } 100% { opacity: 0.97; } }
@@ -83,12 +104,19 @@
 
 <script>
     (function() {
-        const btn = document.getElementById('hudTrigger');
-        if(btn) {
-            btn.addEventListener('click', function(e) {
+        const trigger = document.getElementById('menuTrigger');
+        const close = document.getElementById('menuClose');
+        const deck = document.getElementById('navDeck');
+        const hud = document.getElementById('hudTrigger');
+
+        if(trigger && deck) { trigger.addEventListener('click', () => deck.classList.add('open')); }
+        if(close && deck) { close.addEventListener('click', () => deck.classList.remove('open')); }
+        
+        if(hud) {
+            hud.addEventListener('click', function(e) {
                 e.preventDefault();
                 document.body.classList.toggle('hud-active');
-                btn.classList.toggle('hud-on');
+                hud.classList.toggle('hud-on');
             });
         }
     })();

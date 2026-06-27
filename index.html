@@ -17,3 +17,67 @@
     <script src="script.js"></script>
 </body>
 </html>
+<!-- ================= SCI-FI NAVIGATION MENU ================= -->
+<div class="scifi-nav-mesh">
+    <a href="https://21nizom.github.io/Neon-periodic.X/" class="nav-node"><span class="pulse-core"></span>SYS_01: NEON_PERIODIC</a>
+    <a href="https://21nizom.github.io/quantum-sphere-V2/" class="nav-node active"><span class="pulse-core"></span>SYS_02: QUANTUM_CORE</a>
+    <a href="https://21nizom.github.io/S.I.N.G.U.L.A.R.I.T.Y.-X/" class="nav-node"><span class="pulse-core"></span>SYS_03: SINGULARITY_X</a>
+</div>
+
+<style>
+    .scifi-nav-mesh {
+        position: fixed;
+        top: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        gap: 15px;
+        z-index: 99999;
+        font-family: 'Courier New', Courier, monospace;
+        background: rgba(5, 10, 15, 0.85);
+        padding: 8px 16px;
+        border-radius: 6px;
+        border: 1px solid #00ffcc;
+        box-shadow: 0 0 15px rgba(0, 255, 204, 0.2);
+        backdrop-filter: blur(4px);
+    }
+    .nav-node {
+        color: #00ffcc;
+        text-decoration: none;
+        font-size: 11px;
+        font-weight: bold;
+        letter-spacing: 1px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 6px 12px;
+        border: 1px solid transparent;
+        transition: all 0.3s ease;
+    }
+    .nav-node:hover {
+        background: rgba(0, 255, 204, 0.1);
+        border-color: #00ffcc;
+        box-shadow: 0 0 10px rgba(0, 255, 204, 0.4);
+        text-shadow: 0 0 5px #00ffcc;
+    }
+    .pulse-core {
+        width: 6px;
+        height: 6px;
+        background: #334444;
+        border-radius: 50%;
+        display: inline-block;
+    }
+    .nav-node.active {
+        color: #fff;
+        border-color: #ff007f;
+        background: rgba(255, 0, 127, 0.1);
+        box-shadow: 0 0 10px rgba(255, 0, 127, 0.3);
+        text-shadow: 0 0 5px #ff007f;
+    }
+    .nav-node.active .pulse-core {
+        background: #00ff00;
+        box-shadow: 0 0 8px #00ff00;
+        animation: scifi-blink 1.5s infinite;
+    }
+    @keyframes scifi-blink { 0%, 100% { opacity: 0.4; } 50% { opacity: 1; } }
+</style>

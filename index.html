@@ -72,10 +72,10 @@
 
     @media (max-width: 600px) {
         .cyber-menu-trigger {
-            display: block; position: fixed; top: 15px; right: 15px; z-index: 999995;
-            background: rgba(4, 10, 18, 0.9); border: 1px solid #00ffcc; color: #00ffcc;
+            display: block; position: fixed; top: 15px; right: 15px; z-index: 10000000;
+            background: rgba(4, 10, 18, 0.95); border: 1px solid #00ffcc; color: #00ffcc;
             padding: 10px 14px; font-family: 'Courier New', Courier, monospace; font-size: 12px;
-            font-weight: bold; border-radius: 4px; box-shadow: 0 0 10px rgba(0, 255, 204, 0.3);
+            font-weight: bold; border-radius: 4px; box-shadow: 0 0 15px rgba(0, 255, 204, 0.4);
             cursor: pointer; touch-action: manipulation;
         }
         .cyber-close-btn {
@@ -103,21 +103,23 @@
 </style>
 
 <script>
-    (function() {
-        const trigger = document.getElementById('menuTrigger');
-        const close = document.getElementById('menuClose');
-        const deck = document.getElementById('navDeck');
-        const hud = document.getElementById('hudTrigger');
-
-        if(trigger && deck) { trigger.addEventListener('click', () => deck.classList.add('open')); }
-        if(close && deck) { close.addEventListener('click', () => deck.classList.remove('open')); }
+    document.addEventListener('click', function(e) {
+        const trigger = e.target.closest('#menuTrigger');
+        const close = e.target.closest('#menuClose');
+        const hud = e.target.closest('#hudTrigger');
         
-        if(hud) {
-            hud.addEventListener('click', function(e) {
-                e.preventDefault();
-                document.body.classList.toggle('hud-active');
-                hud.classList.toggle('hud-on');
-            });
+        if (trigger) {
+            const deck = document.getElementById('navDeck');
+            if (deck) deck.classList.add('open');
         }
-    })();
+        if (close) {
+            const deck = document.getElementById('navDeck');
+            if (deck) deck.classList.remove('open');
+        }
+        if (hud) {
+            e.preventDefault();
+            document.body.classList.toggle('hud-active');
+            hud.classList.toggle('hud-on');
+        }
+    });
 </script>

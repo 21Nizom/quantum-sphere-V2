@@ -32,16 +32,18 @@
     .cyber-nav-deck {
         position: fixed; top: 15px; left: 50%; transform: translateX(-50%);
         display: flex; align-items: center; justify-content: space-between; gap: 10px;
-        z-index: 99999; background: rgba(4, 10, 18, 0.9); padding: 6px 12px;
+        z-index: 999999; background: rgba(4, 10, 18, 0.95); padding: 6px 12px;
         border-radius: 6px; border: 1px solid #00ffcc;
         box-shadow: 0 0 20px rgba(0, 255, 204, 0.25); backdrop-filter: blur(6px);
         width: 94%; max-width: 600px; font-family: 'Courier New', Courier, monospace;
+        touch-action: manipulation;
     }
     .cyber-links-wrap { display: flex; gap: 6px; flex: 1; justify-content: flex-start; }
     .cyber-node {
         color: #00ffcc; text-decoration: none; font-size: 11px; font-weight: bold;
         display: flex; align-items: center; gap: 6px; padding: 8px 10px;
         border: 1px solid transparent; border-radius: 4px; transition: all 0.25s ease; white-space: nowrap;
+        position: relative; z-index: 1000000;
     }
     .cyber-node:hover, .cyber-node:active { background: rgba(0, 255, 204, 0.12); border-color: #00ffcc; text-shadow: 0 0 6px #00ffcc; }
     .cyber-core { width: 6px; height: 6px; background: #2a3a3a; border-radius: 50%; display: inline-block; }
@@ -53,20 +55,25 @@
         background: transparent; border: 1px solid #ffaa00; color: #ffaa00;
         padding: 8px 12px; font-family: 'Courier New', Courier, monospace; font-size: 10px;
         font-weight: bold; cursor: pointer; border-radius: 4px; transition: all 0.2s ease; touch-action: manipulation;
+        position: relative; z-index: 1000000;
     }
     .cyber-hud-btn:hover, .cyber-hud-btn:active, .cyber-hud-btn.hud-on { background: rgba(255, 170, 0, 0.2); box-shadow: 0 0 12px #ffaa00; text-shadow: 0 0 5px #ffaa00; }
 
     .cyber-scan-overlay {
-        position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 99998;
+        position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 999998;
         background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 255, 100, 0.06) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03));
         background-size: 100% 4px, 6px 100%; opacity: 0; transition: opacity 0.4s ease;
     }
     body.hud-active .cyber-scan-overlay { opacity: 1; animation: matrix-flicker 0.15s infinite; }
 
+    @media (min-width: 601px) { 
+        .cyber-node { font-size: 12px; padding: 8px 14px; } 
+    }
+
     @media (max-width: 600px) {
-        .cyber-nav-deck { padding: 4px 8px; top: 10px; }
+        .cyber-nav-deck { top: auto; bottom: 12px; padding: 6px 8px; }
         .cyber-links-wrap { gap: 2px; }
-        .cyber-node { font-size: 9px; padding: 8px 5px; gap: 4px; }
+        .cyber-node { font-size: 9px; padding: 8px 6px; gap: 4px; }
         .cyber-core { width: 5px; height: 5px; }
         .cyber-hud-btn { padding: 8px 6px; font-size: 9px; }
     }
@@ -75,9 +82,14 @@
 </style>
 
 <script>
-    function toggleCyberMode() {
-        document.body.classList.toggle('hud-active');
-        document.getElementById('hudTrigger').classList.toggle('hud-on');
-    }
-    document.getElementById('hudTrigger').addEventListener('click', toggleCyberMode);
+    (function() {
+        const btn = document.getElementById('hudTrigger');
+        if(btn) {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.body.classList.toggle('hud-active');
+                btn.classList.toggle('hud-on');
+            });
+        }
+    })();
 </script>

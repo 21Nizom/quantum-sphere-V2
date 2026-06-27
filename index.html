@@ -39,22 +39,22 @@
     .cyber-nav-deck {
         position: fixed; top: 15px; left: 50%; transform: translateX(-50%);
         display: flex; align-items: center; justify-content: space-between; gap: 10px;
-        z-index: 999999; background: rgba(4, 10, 18, 0.95); padding: 6px 12px;
-        border-radius: 6px; border: 1px solid #00ffcc;
-        box-shadow: 0 0 20px rgba(0, 255, 204, 0.25); backdrop-filter: blur(6px);
+        z-index: 2147483647; background: rgba(12, 5, 26, 0.95); padding: 6px 12px;
+        border-radius: 6px; border: 1px solid #bd00ff;
+        box-shadow: 0 0 20px rgba(189, 0, 255, 0.25); backdrop-filter: blur(6px);
         width: 94%; max-width: 600px; font-family: 'Courier New', Courier, monospace;
     }
     .cyber-links-wrap { display: flex; gap: 6px; }
     .cyber-node {
-        color: #00ffcc; text-decoration: none; font-size: 12px; font-weight: bold;
+        color: #bd00ff; text-decoration: none; font-size: 12px; font-weight: bold;
         display: flex; align-items: center; gap: 6px; padding: 8px 14px;
         border: 1px solid transparent; border-radius: 4px; transition: all 0.25s ease; white-space: nowrap;
     }
-    .cyber-node:hover, .cyber-node:active { background: rgba(0, 255, 204, 0.12); border-color: #00ffcc; text-shadow: 0 0 6px #00ffcc; }
-    .cyber-core { width: 6px; height: 6px; background: #2a3a3a; border-radius: 50%; display: inline-block; }
+    .cyber-node:hover, .cyber-node:active { background: rgba(189, 0, 255, 0.12); border-color: #bd00ff; text-shadow: 0 0 6px #bd00ff; }
+    .cyber-core { width: 6px; height: 6px; background: #3b1f54; border-radius: 50%; display: inline-block; }
     
-    .cyber-node.active { color: #fff; border-color: #ff007f; background: rgba(255, 0, 127, 0.1); box-shadow: 0 0 10px rgba(255, 0, 127, 0.25); text-shadow: 0 0 5px #ff007f; }
-    .cyber-node.active .cyber-core { background: #00ff00; box-shadow: 0 0 8px #00ff00; animation: cyber-pulse 1.5s infinite; }
+    .cyber-node.active { color: #fff; border-color: #00e5ff; background: rgba(0, 229, 255, 0.15); box-shadow: 0 0 10px rgba(0, 229, 255, 0.3); text-shadow: 0 0 5px #00e5ff; }
+    .cyber-node.active .cyber-core { background: #00e5ff; box-shadow: 0 0 8px #00e5ff; animation: quantum-pulse 1.5s infinite; }
 
     .cyber-hud-btn {
         background: transparent; border: 1px solid #ffaa00; color: #ffaa00;
@@ -64,41 +64,43 @@
     .cyber-hud-btn:hover, .cyber-hud-btn:active, .cyber-hud-btn.hud-on { background: rgba(255, 170, 0, 0.2); box-shadow: 0 0 12px #ffaa00; text-shadow: 0 0 5px #ffaa00; }
 
     .cyber-scan-overlay {
-        position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 999998;
-        background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 255, 100, 0.06) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03));
+        position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 2147483646;
+        background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(189, 0, 255, 0.05) 50%), linear-gradient(90deg, rgba(0, 229, 255, 0.02), rgba(0, 0, 0, 0), rgba(189, 0, 255, 0.02));
         background-size: 100% 4px, 6px 100%; opacity: 0; transition: opacity 0.4s ease;
     }
     body.hud-active .cyber-scan-overlay { opacity: 1; animation: matrix-flicker 0.15s infinite; }
 
+    /* МОБИЛЬНАЯ ВЕРСИЯ — ДИЗАЙН: КВАНТОВЫЙ ГОЛОГРАФИЧЕСКИЙ ДЕК */
     @media (max-width: 600px) {
         .cyber-menu-trigger {
-            display: block; position: fixed; top: 15px; right: 15px; z-index: 10000000;
-            background: rgba(4, 10, 18, 0.95); border: 1px solid #00ffcc; color: #00ffcc;
-            padding: 10px 14px; font-family: 'Courier New', Courier, monospace; font-size: 12px;
-            font-weight: bold; border-radius: 4px; box-shadow: 0 0 15px rgba(0, 255, 204, 0.4);
+            display: block !important; position: fixed !important; top: 12px !important; right: 12px !important; 
+            z-index: 2147483647 !important; pointer-events: auto !important;
+            background: rgba(15, 5, 30, 0.95); border: 2px solid #bd00ff; color: #bd00ff;
+            padding: 12px 16px; font-family: 'Courier New', Courier, monospace; font-size: 13px;
+            font-weight: bold; border-radius: 20px; box-shadow: 0 0 15px rgba(189, 0, 255, 0.4);
             cursor: pointer; touch-action: manipulation;
         }
         .cyber-close-btn {
             display: block; position: absolute; top: 15px; right: 15px;
-            background: transparent; border: 1px solid #ff007f; color: #ff007f;
+            background: transparent; border: 1px solid #bd00ff; color: #bd00ff;
             padding: 8px 12px; font-family: 'Courier New', Courier, monospace; font-size: 11px;
-            font-weight: bold; border-radius: 4px; cursor: pointer;
+            font-weight: bold; border-radius: 12px; cursor: pointer;
         }
         .cyber-nav-deck {
             position: fixed; top: 0; right: -100%; left: auto; transform: none;
             width: 270px; height: 100%; flex-direction: column; justify-content: flex-start;
             align-items: stretch; gap: 35px; padding: 80px 20px 40px 20px;
-            border-radius: 0; border: none; border-left: 2px solid #00ffcc;
-            background: rgba(3, 8, 15, 0.98); box-shadow: -10px 0 30px rgba(0, 255, 204, 0.2);
+            border-radius: 0; border: none; border-left: 2px solid #bd00ff;
+            background: rgba(8, 3, 18, 0.98); box-shadow: -10px 0 30px rgba(189, 0, 255, 0.2);
             transition: right 0.3s cubic-bezier(0.1, 0.9, 0.2, 1);
         }
         .cyber-nav-deck.open { right: 0; }
         .cyber-links-wrap { flex-direction: column; gap: 14px; }
-        .cyber-node { font-size: 14px; padding: 14px 12px; border: 1px solid rgba(0, 255, 204, 0.15); justify-content: flex-start; }
-        .cyber-node.active { border-color: #ff007f; }
-        .cyber-hud-btn { width: 100%; padding: 14px; font-size: 12px; text-align: center; margin-top: auto; }
+        .cyber-node { font-size: 14px; padding: 14px 12px; border: 1px solid rgba(189, 0, 255, 0.2); border-radius: 8px; justify-content: flex-start; color: #bd00ff; }
+        .cyber-node.active { border-color: #00e5ff; color: #00e5ff; background: rgba(0, 229, 255, 0.08); }
+        .cyber-hud-btn { width: 100%; padding: 14px; font-size: 12px; text-align: center; margin-top: auto; border-radius: 8px; }
     }
-    @keyframes cyber-pulse { 0%, 100% { opacity: 0.3; } 50% { opacity: 1; } }
+    @keyframes quantum-pulse { 0%, 100% { opacity: 0.4; } 50% { opacity: 1; text-shadow: 0 0 8px #00e5ff; } }
     @keyframes matrix-flicker { 0% { opacity: 0.95; } 50% { opacity: 1; } 100% { opacity: 0.97; } }
 </style>
 
@@ -107,15 +109,10 @@
         const trigger = e.target.closest('#menuTrigger');
         const close = e.target.closest('#menuClose');
         const hud = e.target.closest('#hudTrigger');
+        const deck = document.getElementById('navDeck');
         
-        if (trigger) {
-            const deck = document.getElementById('navDeck');
-            if (deck) deck.classList.add('open');
-        }
-        if (close) {
-            const deck = document.getElementById('navDeck');
-            if (deck) deck.classList.remove('open');
-        }
+        if (trigger) { if (deck) deck.classList.add('open'); }
+        if (close) { if (deck) deck.classList.remove('open'); }
         if (hud) {
             e.preventDefault();
             document.body.classList.toggle('hud-active');

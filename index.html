@@ -70,7 +70,6 @@
     }
     body.hud-active .cyber-scan-overlay { opacity: 1; animation: matrix-flicker 0.15s infinite; }
 
-    /* МОБИЛЬНАЯ ВЕРСИЯ — ДИЗАЙН: КВАНТОВЫЙ ГОЛОГРАФИЧЕСКИЙ ДЕК */
     @media (max-width: 600px) {
         .cyber-menu-trigger {
             display: block !important; position: fixed !important; top: 12px !important; right: 12px !important; 
@@ -105,18 +104,31 @@
 </style>
 
 <script>
-    document.addEventListener('click', function(e) {
-        const trigger = e.target.closest('#menuTrigger');
-        const close = e.target.closest('#menuClose');
-        const hud = e.target.closest('#hudTrigger');
-        const deck = document.getElementById('navDeck');
-        
-        if (trigger) { if (deck) deck.classList.add('open'); }
-        if (close) { if (deck) deck.classList.remove('open'); }
-        if (hud) {
-            e.preventDefault();
-            document.body.classList.toggle('hud-active');
-            hud.classList.toggle('hud-on');
+    (function() {
+        let lastMenuTouch = 0;
+        function interceptMenu(e) {
+            const now = Date.now();
+            if (e.type === 'click' && (now - lastMenuTouch < 400)) return;
+
+            const trigger = e.target.closest('#menuTrigger');
+            const close = e.target.closest('#menuClose');
+            const hud = e.target.closest('#hudTrigger');
+            const deck = document.getElementById('navDeck');
+
+            if (trigger || close || hud) {
+                if (e.type === 'touchstart') lastMenuTouch = now;
+                e.stopPropagation();
+            } else { return; }
+
+            if (trigger && deck) deck.classList.add('open');
+            if (close && deck) deck.classList.remove('open');
+            if (hud) {
+                e.preventDefault();
+                document.body.classList.toggle('hud-active');
+                hud.classList.toggle('hud-on');
+            }
         }
-    });
+        document.addEventListener('click', interceptMenu, true);
+        document.addEventListener('touchstart', interceptMenu, true);
+    })();
 </script>
